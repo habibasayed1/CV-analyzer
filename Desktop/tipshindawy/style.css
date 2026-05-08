@@ -1,0 +1,46 @@
+.hero{
+    background-color: #F4EDFC;
+    max-width: 100%;
+    
+}
+.Dream{
+    color:#6600CC;
+}
+.first{
+    font-size: 65px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align:justify
+}
+.lead{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+.btn.Choose{
+    background-color:#6600CC !important;
+    color:white !important;
+}
+.btn.Analyze{
+    background-color:#6600CC !important;
+    color:white !important;
+}
+
+.card.maincard{
+    border: 1px solid #6600CC !important;
+    box-shadow: 0 4px 15px rgba(102, 0, 204, 0.15);
+    border-radius: 15px;
+}
+
+#dropArea{
+    border: 2px dashed #6600CC;
+    box-shadow: 0 4px 15px rgba(102, 0, 204, 0.1);
+    border-radius: 12px;
+}
+.upload {
+    color:#6600CC !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    font-size: 60px;
+}

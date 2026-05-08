@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Hero-->
+    <div class="container col-xxl-8 px-4 py-5 hero">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="./images/2c1a86197e95793d599e229a0a36bb9d-removebg-preview.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+          </div>
+      
+          <div class="col-lg-6 ">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 first">
+              Analyze Your CV <br>Find Your <span class="Dream">Dream Job</span>
+            </h1>
+      
+            <p class="lead">
+              Upload Your CV and AI will help you find Your perfect Job.
+              <br>
+              Here is the start
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5 ">
+        <div class="card shadow-lg p-5 text-center maincard">
+      
+          <h3 class="mb-4 upload">Upload Your CV</h3>
+      
+          <form id="uploadForm">
+            
+            <div class="border rounded p-5 mb-3 bg-light" id="dropArea">
+              <p class="mb-2">Drag & Drop your CV here</p>
+              <p class="text-muted">or</p>
+              
+              <input type="file" name="file" id="fileInput" hidden>
+              <button type="button" class="btn Choose" onclick="document.getElementById('fileInput').click()">
+                Choose File
+              </button>
+      
+              <p id="fileName" class="mt-3 text-success"></p>
+            </div>
+      
+            <button class="btn Analyze mt-3 px-5">Analyze CV</button>
+      
+          </form>
+      
+          <div id="loading" class="mt-4" style="display:none;">
+            <div class="spinner-border text-primary"></div>
+            <p>Analyzing your CV...</p>
+          </div>
+      
+          <pre id="result" class="mt-4 text-start"></pre>
+      
+        </div>
+      </div>
+
+      <script>
+        const form = document.getElementById("uploadForm");
+        const fileInput = document.getElementById("fileInput");
+        const fileName = document.getElementById("fileName");
+        const loading = document.getElementById("loading");
+        const result = document.getElementById("result");
+        const dropArea = document.getElementById("dropArea");
+        
+        fileInput.addEventListener("change", () => {
+          fileName.textContent = fileInput.files[0]?.name || "";
+        });
+        
+        dropArea.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          dropArea.classList.add("bg-white");
+        });
+        
+        dropArea.addEventListener("dragleave", () => {
+          dropArea.classList.remove("bg-white");
+        });
+        
+        dropArea.addEventListener("drop", (e) => {
+          e.preventDefault();
+          fileInput.files = e.dataTransfer.files;
+          fileName.textContent = fileInput.files[0].name;
+        });
+        
+        form.onsubmit = async (e) => {
+          e.preventDefault();
+        
+          if (!fileInput.files.length) {
+            alert("Please upload a CV first");
+            return;
+          }
+        
+          const formData = new FormData();
+          formData.append("file", fileInput.files[0]);
+        
+          loading.style.display = "block";
+          result.textContent = "";
+        
+          const res = await fetch("http://127.0.0.1:5000/analyze", {
+            method: "POST",
+            body: formData
+          });
+        
+          const data = await res.json();
+        
+          loading.style.display = "none";
+          result.textContent = JSON.stringify(data, null, 2);
+        };
+        </script>
+</body>
+
+</html>
